@@ -12,6 +12,7 @@ var dist_scripts_dir = dist_dir + 'js';
 var dist_images_dir = dist_dir + 'images';
 var dependencies_js_dirs = [
   'bower_components/jquery/dist/jquery.min.js',
+  'bower_components/jquery/dist/jquery.min.map',
   'bower_components/bootstrap/dist/js/bootstrap.min.js'
 ];
 var dependencies_css_dirs = [
@@ -76,7 +77,7 @@ gulp.task('images', function() {
 
 // Clean
 gulp.task('clean', function() {
-  return del([dist_style_dir, dist_scripts_dir, dist_images_dir]);
+  return del([dist_style_dir, dist_scripts_dir, dist_images_dir], {force: true});
 });
 
 // Default task

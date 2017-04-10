@@ -1,3 +1,6 @@
 *.pyc
 .idea
 venv
+media/node_modules
+media/bower_components
+.DS_Store

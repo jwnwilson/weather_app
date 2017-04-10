@@ -1,0 +1,14 @@
+{
+  "name": "weather_app",
+  "version": "0.0.1",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.3",
+    "bootstrap": "^3.3.7"
+  }
+}

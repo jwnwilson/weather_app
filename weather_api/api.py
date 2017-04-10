@@ -4,7 +4,7 @@ import logging
 import requests
 from requests.exceptions import ConnectTimeout
 
-from .exceptions import WeatherApiException
+from weather_api.exceptions import WeatherApiException
 import settings
 
 logger = logging.getLogger(__name__)
@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 class WeatherApi():
     """
-    Requests wrapper to make api calls to the weather API
+    Requests wrapper to make weather_api calls to the weather_app API
     """
     def __init__(self):
         self.base_url = settings.BASE_API_URL
@@ -65,9 +65,9 @@ class WeatherApi():
         """
         Make a single GET request to the marvel with url being the path
         and params being the url params
-        
+
         Args:
-            url: (str) relative api url to be added to base url
+            url: (str) relative weather_api url to be added to base url
             params: (dict) url parms to be added
             timeout: (int) optional timeout
 

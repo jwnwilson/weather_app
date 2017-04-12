@@ -22,8 +22,8 @@ class CurrentWeatherResource(BaseWeatherResource):
         if not query:
             raise BadRequest('No "?q=" url param provided.')
 
-        return self.weather_api.current_weather(
-            params=self.request.GET.dict())
+        return [self.weather_api.current_weather(
+            params=self.request.GET.dict())]
 
 
 class WeatherForcastResource(BaseWeatherResource):
@@ -38,8 +38,8 @@ class WeatherForcastResource(BaseWeatherResource):
         if not query:
             raise BadRequest('No "?q=" url param provided.')
 
-        return self.weather_api.weather_forecast(
-            params=self.request.GET.dict())
+        return [self.weather_api.weather_forecast(
+            params=self.request.GET.dict())]
 
 
 class WeatherHistoryResource(BaseWeatherResource):
@@ -54,6 +54,6 @@ class WeatherHistoryResource(BaseWeatherResource):
         if not query:
             raise BadRequest('No "?q=" url param provided.')
 
-        return self.weather_api.weather_history(
-            params=self.request.GET.dict())
+        return [self.weather_api.weather_history(
+            params=self.request.GET.dict())]
 

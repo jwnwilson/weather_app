@@ -1,11 +1,11 @@
 import json
 import logging
 
+from django.conf import settings
 import requests
 from requests.exceptions import ConnectTimeout
 
 from weather_api.exceptions import WeatherApiException
-import settings
 
 logger = logging.getLogger(__name__)
 
@@ -16,6 +16,7 @@ class WeatherApi():
     """
     def __init__(self):
         self.base_url = settings.BASE_API_URL
+        self.api_key = settings.API_KEY
 
     def request(
             self,
@@ -38,10 +39,11 @@ class WeatherApi():
         params = params or {}
         url = self.base_url + url
 
-        request_func = requests.request
+        # Add api key
+        params['APPID'] = self.api_key
 
         try:
-            resp = request_func(
+            resp = requests.request(
                 method.upper(), url, params=params, data=data, timeout=timeout)
         except ConnectTimeout:
             msg = 'Connection timed out for: {}'.format(url)
@@ -81,3 +83,11 @@ class WeatherApi():
         self._handle_resp_errors(resp)
         return json.loads(resp.content)
 
+    def current_weather(self, params=None, timeout=None):
+        return self.get('weather', params=params, timeout=timeout)
+
+    def weather_forecast(self, params=None, timeout=None):
+        return self.get('forecast', params=params, timeout=timeout)
+
+    def weather_history(self, params=None, timeout=None):
+        return self.get('history', params=params, timeout=timeout)

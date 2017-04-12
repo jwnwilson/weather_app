@@ -1,8 +1,11 @@
 from django.conf.urls import url, include
 
-from .resources import WeatherResource
+from .resources import (
+    CurrentWeatherResource, WeatherForcastResource, WeatherHistoryResource)
 
 
 urlpatterns = [
-    url(r'^weather/', include(WeatherResource.urls())),
+    url(r'^current/', include(CurrentWeatherResource.urls())),
+    url(r'^forcast/', include(WeatherForcastResource.urls())),
+    url(r'^histroy/', include(WeatherHistoryResource.urls())),
 ]

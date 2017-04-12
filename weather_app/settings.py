@@ -15,9 +15,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+API_KEY = '4291465406bccb47ae1db3959b067d09'
+BASE_API_URL = 'http://api.openweathermap.org/data/2.5/'
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

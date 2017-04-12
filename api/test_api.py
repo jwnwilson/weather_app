@@ -33,6 +33,10 @@ class TestWeatherResource:
         self.factory = RequestFactory()
 
     def test_detail(self, resource):
+        """
+        Test the resource makes correct url call to weather api for general
+        api queries
+        """
         res_class, res_name = resource
         query = '1'
         with requests_mock.mock() as m:
@@ -48,6 +52,10 @@ class TestWeatherResource:
             assert m.called is True
 
     def test_list(self, resource):
+        """
+        Test the resource makes correct url call to weather api for specific 
+        city ids
+        """
         res_class, res_name = resource
         query = '?q=london'
         with requests_mock.mock() as m:

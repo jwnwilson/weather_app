@@ -15,7 +15,6 @@ class CityDropdown extends Component {
   }
 
   _onSelect (option) {
-    console.log('You selected ', option.label)
     this.setState({selected: option})
   }
 
@@ -24,13 +23,11 @@ class CityDropdown extends Component {
     const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
 
     return (
-      <section>
-        <Dropdown options={options} onChange={this._onSelect} value={defaultOption} placeholder="Select an option" />
-        <div className='result'>
-          You selected
-          <strong> {placeHolderValue} </strong>
-        </div>
-      </section>
+      <Dropdown
+        options={options}
+        onChange={this._onSelect}
+        value={defaultOption}
+        placeholder="Select an option" />
     )
   }
 }

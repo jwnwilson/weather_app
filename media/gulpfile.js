@@ -36,7 +36,14 @@ var gulp = require('gulp'),
     concat = require('gulp-concat');
     webpackStream = require('webpack-stream');
     webpack2 = require('webpack');
-    webpackConfig = require('./webpack.config')
+    webpackConfig = require('./webpack.config');
+
+// Don't exit watch on error
+function swallowError (error) {
+  console.log(error.toString());
+  notify({ message: 'Error during build.' })
+  this.emit('end')
+}
 
 // Styles
 gulp.task('styles', function() {
@@ -54,6 +61,7 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
   return gulp.src('src/main.jsx')
     .pipe(webpackStream(webpackConfig, webpack2))
+    .on('error', swallowError)
     .pipe(gulp.dest(dist_scripts_dir))
     .pipe(notify({ message: 'Scripts task complete' }));
 });

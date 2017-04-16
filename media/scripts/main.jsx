@@ -2,12 +2,13 @@ import React from 'react';
 import {render} from 'react-dom';
 import InputWidget from './inputWidget.jsx';
 import OutputWidget from './outputWidget.jsx';
+var moment = require('moment');
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      datetime: null,
+      datetime: moment(),
       city: null,
       apiData: null
     };

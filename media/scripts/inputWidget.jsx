@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import CityDropdown from './dropdown.jsx';
 import WeatherDatePicker from './datepicker.jsx';
 import WeatherButton from './button.jsx';
+var moment = require('moment');
 
 class InputWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      datetime: null,
+      datetime: moment(),
       city: null,
       apiData: null
     };
@@ -48,10 +49,6 @@ class InputWidget extends React.Component {
     }
     // Make api call
     this.getApiData();
-    //Update output
-    this.props.onInputUpdate(
-      {apiData: this.state.apiData}
-    );
   }
 
   getApiData() {
@@ -62,6 +59,10 @@ class InputWidget extends React.Component {
           this.setState({
             apiData: data
           });
+          //Update output
+          this.props.onInputUpdate(
+            {apiData: this.state.apiData}
+          );
         });
     }
   }

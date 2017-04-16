@@ -74,8 +74,9 @@ form button {
   width: 200px;
 }
 .input-button{
-  width: 200px;
-  margin-top: 5px;
+  min-width: 150px;
+  width: 50%;
+  margin-top: 10px;
 }
 .label-text{
   width:100px;
@@ -86,7 +87,8 @@ form button {
 }
 .inputWidget {
   @include widget();
-  margin-right:10px;
+  margin-right:20px;
+  margin-top:10px;
 }
 .outputWidget{
   @include widget();

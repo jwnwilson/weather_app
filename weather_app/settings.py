@@ -13,7 +13,9 @@ SECRET_KEY = '&+f67mr=2l#vdqsapr-+w2x8oycrjd)x$m(xafkt^rsqwz+_55'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'weather-app-nw.herokuapp.com'
+]
 
 API_KEY = '4291465406bccb47ae1db3959b067d09'
 BASE_API_URL = 'http://api.openweathermap.org/data/2.5/'

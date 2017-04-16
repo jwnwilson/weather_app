@@ -12,15 +12,9 @@ class InputWidget extends React.Component {
       city: null,
       apiData: null
     };
-
-    this.onCitySelect = this.onCitySelect.bind(this);
-    this.onDateTimeSelect = this.onDateTimeSelect.bind(this);
-    this.buttonClicked = this.buttonClicked.bind(this);
-    this.getApiData = this.getApiData.bind(this);
   }
 
-  onCitySelect(option) {
-    console.log('You selected city:', option.label);
+  onCitySelect = (option) => {
     this.setState({
       city: option.label
     });
@@ -29,8 +23,7 @@ class InputWidget extends React.Component {
     });
   }
 
-  onDateTimeSelect(option) {
-    console.log('You selected datetime:', option);
+  onDateTimeSelect = (option) => {
     this.setState({
       datetime: option
     });
@@ -39,7 +32,7 @@ class InputWidget extends React.Component {
     });
   }
 
-  buttonClicked () {
+  buttonClicked = () => {
     // Get city and time
     if('city' in this.state){
       console.log('City: ', this.state.city);
@@ -51,7 +44,7 @@ class InputWidget extends React.Component {
     this.getApiData();
   }
 
-  getApiData() {
+  getApiData = () => {
     if(this.state.city){
       console.log('Getting API data:');
       return $.getJSON('/api/current/?q=' + this.state.city)

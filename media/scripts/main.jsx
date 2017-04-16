@@ -12,11 +12,9 @@ class App extends React.Component {
       city: null,
       apiData: null
     };
-
-    this.onInputUpdate = this.onInputUpdate.bind(this);
   }
 
-  onInputUpdate (inputData) {
+  onInputUpdate = (inputData) => {
     for(var key of ['city', 'datetime', 'apiData']){
       if(key in inputData){
         console.log('Setting state: ' + key);

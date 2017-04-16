@@ -1,20 +1,14 @@
 import React, { Component } from 'react'
 
 class OutputWidget extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.formatDate = this.formatDate.bind(this);
-  }
-
-  formatDate(){
+  formatDate = () => {
     if(this.props.datetime){
       return this.props.datetime.format('MM:HH DD/MM/YYYY');
     }
     return '';
   }
 
-  formatApiData(){
+  formatApiData = () => {
     if(this.props.apiData){
       let cityData = this.props.apiData.objects[0];
       return (<div>

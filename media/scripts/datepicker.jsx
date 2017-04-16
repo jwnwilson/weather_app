@@ -8,10 +8,9 @@ class WeatherDatePicker extends Component {
     this.state = {
       startDate: moment()
     };
-    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(date) {
+  handleChange = (date) => {
     this.setState({
       startDate: date
     });

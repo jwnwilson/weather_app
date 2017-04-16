@@ -20,11 +20,9 @@ class CityDropdown extends Component {
     this.state = {
       selected: null
     };
-
-    this._onSelect = this._onSelect.bind(this);
   }
 
-  _onSelect (option) {
+  _onSelect = (option) => {
     this.setState({selected: option});
     this.props.onCitySelect(option);
   }

@@ -5,7 +5,7 @@ given city and period of time.
 
 Available here:
 
-https://weather-app-nw.herokuapp.com/#
+https://weather-app-nw.herokuapp.com/
 
 # Backend
 

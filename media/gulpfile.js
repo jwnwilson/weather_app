@@ -2,6 +2,7 @@
  * gulp
  * $ npm install gulp-sass gulp-autoprefixer gulp-cssnano gulp-jshint gulp-concat gulp-uglify gulp-imagemin gulp-notify gulp-rename gulp-livereload gulp-cache del --save-dev
  */
+// Need to convert to camelCase
 var style_dir = 'styles/';
 var scripts_dir = 'scripts/';
 var images_dir = 'images/';
@@ -15,8 +16,12 @@ var dependencies_js_dirs = [
   'bower_components/jquery/dist/jquery.min.map',
   'bower_components/bootstrap/dist/js/bootstrap.min.js'
 ];
+// Need to migrate this to webpack
 var dependencies_css_dirs = [
-  'bower_components/bootstrap/dist/css/bootstrap.min.css'
+  'bower_components/bootstrap/dist/css/bootstrap.min.css',
+];
+var styleDependancies = [
+  'node_modules/react-datetime/css/'
 ];
 
 // Load plugins
@@ -24,6 +29,7 @@ var gulp = require('gulp'),
     sass = require('gulp-sass'),
     autoprefixer = require('gulp-autoprefixer'),
     cssnano = require('gulp-cssnano'),
+    debug = require('gulp-debug');
     jshint = require('gulp-jshint'),
     uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
@@ -47,7 +53,7 @@ function swallowError (error) {
 
 // Styles
 gulp.task('styles', function() {
-  return gulp.src(style_dir + '**/*.scss')
+  return gulp.src(style_dir + 'main.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer('last 2 version'))
     .pipe(gulp.dest(dist_style_dir))
@@ -55,6 +61,20 @@ gulp.task('styles', function() {
     .pipe(cssnano())
     .pipe(gulp.dest(dist_style_dir))
     .pipe(notify({ message: 'Styles task complete' }));
+});
+
+// ESLint
+gulp.task('eslint', function() {
+  return gulp.src(scripts_dir + '**/*.jsx')
+    .pipe(eslint({
+      baseConfig: {
+        "ecmaFeatures": {
+           "jsx": true
+         }
+      }
+    }))
+    .pipe(eslint.format())
+    .pipe(eslint.failAfterError());
 });
 
 // Scripts
@@ -68,8 +88,12 @@ gulp.task('scripts', function() {
 
 // Dependencies
 gulp.task('dependencies', function() {
-  var js_dependancies = gulp.src(dependencies_js_dirs)
-    .pipe(gulp.dest(dist_scripts_dir + '/lib/'))
+  gulp.src(dependencies_js_dirs)
+    .pipe(gulp.dest(dist_scripts_dir + '/lib/'));
+  // Rename css to scss as a workaround until I setup webpack
+  gulp.src(styleDependancies + '**/*.css')
+    .pipe(rename({ extname: '.scss' }))
+    .pipe(gulp.dest(style_dir + 'dependencies/'));
   return css_dependancies = gulp.src(dependencies_css_dirs)
     .pipe(gulp.dest(dist_style_dir))
     .pipe(notify({ message: 'Dependencies task complete' }));

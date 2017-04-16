@@ -1,6 +1,10 @@
 *.pyc
 .idea
+.DS_Store
+.cache
 venv
 media/node_modules
 media/bower_components
-.DS_Store
+media/styles/dependencies
+staticfiles
+db.sqlite3

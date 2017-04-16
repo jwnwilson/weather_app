@@ -8,6 +8,7 @@ var scripts_dir = 'scripts/';
 var images_dir = 'images/';
 var dist_dir = '../static/';
 var build_dir = 'build/';
+var dist_fonts_dir = dist_dir + 'fonts';
 var dist_style_dir = dist_dir + 'css';
 var dist_scripts_dir = dist_dir + 'js';
 var dist_images_dir = dist_dir + 'images';
@@ -23,6 +24,9 @@ var dependencies_css_dirs = [
 var styleDependancies = [
   'node_modules/react-datetime/css/'
 ];
+var font_dirs = [
+  'bower_components/bootstrap/fonts/*'
+]
 
 // Load plugins
 var gulp = require('gulp'),
@@ -94,9 +98,11 @@ gulp.task('dependencies', function() {
   gulp.src(styleDependancies + '**/*.css')
     .pipe(rename({ extname: '.scss' }))
     .pipe(gulp.dest(style_dir + 'dependencies/'));
-  return css_dependancies = gulp.src(dependencies_css_dirs)
+  gulp.src(dependencies_css_dirs)
     .pipe(gulp.dest(dist_style_dir))
-    .pipe(notify({ message: 'Dependencies task complete' }));
+  return gulp.src(font_dirs)
+  .pipe(gulp.dest(dist_fonts_dir))
+  .pipe(notify({ message: 'Dependencies task complete' }));
 })
 
 // Images

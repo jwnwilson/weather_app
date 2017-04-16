@@ -6,6 +6,7 @@ const options = [
 ]
 
 class DropdownIgnorePlaceholder extends Dropdown {
+  // Dropdown will use placeholder when re-rendering
   componentWillReceiveProps(newProps) {
     if(newProps.value !== this.state.selected){
       super.componentWillReceiveProps(newProps);

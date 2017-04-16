@@ -8,17 +8,23 @@ class InputWidget extends React.Component {
     super(props);
     this.state = {
       datetime: null,
-      city: null
+      city: null,
+      apiData: null
     };
 
     this.onCitySelect = this.onCitySelect.bind(this);
     this.onDateTimeSelect = this.onDateTimeSelect.bind(this);
+    this.buttonClicked = this.buttonClicked.bind(this);
+    this.getApiData = this.getApiData.bind(this);
   }
 
   onCitySelect(option) {
     console.log('You selected city:', option.label);
     this.setState({
       city: option.label
+    });
+    this.props.onInputUpdate({
+      'city': option.label
     });
   }
 
@@ -27,6 +33,37 @@ class InputWidget extends React.Component {
     this.setState({
       datetime: option
     });
+    this.props.onInputUpdate({
+      'datetime': option
+    });
+  }
+
+  buttonClicked () {
+    // Get city and time
+    if('city' in this.state){
+      console.log('City: ', this.state.city);
+    }
+    if('datetime' in this.state){
+      console.log('DateTime: ', this.state.datetime);
+    }
+    // Make api call
+    this.getApiData();
+    //Update output
+    this.props.onInputUpdate(
+      {apiData: this.state.apiData}
+    );
+  }
+
+  getApiData() {
+    if(this.state.city){
+      console.log('Getting API data:');
+      return $.getJSON('/api/current/?q=' + this.state.city)
+        .then((data) => {
+          this.setState({
+            apiData: data
+          });
+        });
+    }
   }
 
   render() {
@@ -50,15 +87,15 @@ class InputWidget extends React.Component {
         <WeatherDatePicker
           onDateTimeSelect={this.onDateTimeSelect}/>
         <WeatherButton
-          city={this.state.city}
-          datetime={this.state.datetime} />
+          buttonClicked={this.buttonClicked} />
       </div>
     );
   }
 }
 
 InputWidget.defaultProps = {
-  placeHolder: "Select an option"
+  placeHolder: "Select an option",
+  onInputUpdate: function(){}
 };
 
 export default InputWidget;

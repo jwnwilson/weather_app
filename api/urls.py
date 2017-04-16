@@ -7,5 +7,5 @@ from .resources import (
 urlpatterns = [
     url(r'^current/', include(CurrentWeatherResource.urls())),
     url(r'^forcast/', include(WeatherForcastResource.urls())),
-    url(r'^histroy/', include(WeatherHistoryResource.urls())),
+    url(r'^history/', include(WeatherHistoryResource.urls())),
 ]

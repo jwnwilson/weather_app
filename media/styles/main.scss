@@ -1,6 +1,12 @@
 @import "dropdown";
 @import "dependencies/react-datetime";
 
+@mixin widget{
+  width:45%;
+  min-width:100px;
+  float: left;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -78,7 +84,10 @@ form button {
   display:table;
   margin:0 auto;
 }
-.inputWidget{
-  width:50%;
-  min-width:100px;
+.inputWidget {
+  @include widget();
+  margin-right:10px;
+}
+.outputWidget{
+  @include widget();
 }

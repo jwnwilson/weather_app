@@ -34,3 +34,8 @@ $ gulp
 ## Development
 
 $ gulp watch
+
+
+## Testing
+
+$ npm test

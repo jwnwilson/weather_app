@@ -11,10 +11,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&+f67mr=2l#vdqsapr-+w2x8oycrjd)x$m(xafkt^rsqwz+_55'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
-    'weather-app-nw.herokuapp.com'
+    'weather-app-nw.herokuapp.com',
+    'localhost'
 ]
 
 API_KEY = '4291465406bccb47ae1db3959b067d09'

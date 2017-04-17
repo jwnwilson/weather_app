@@ -1,8 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
-import InputWidget from './inputWidget.jsx';
-import OutputWidget from './outputWidget.jsx';
-var moment = require('moment');
+import InputWidget from './components/inputWidget.jsx';
+import OutputWidget from './components/outputWidget.jsx';
+import moment from 'moment';
 
 class App extends React.Component {
   constructor(props) {

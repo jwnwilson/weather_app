@@ -7,54 +7,33 @@ var moment = require('moment');
 class InputWidget extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      datetime: moment(),
-      city: null,
-      apiData: null
-    };
   }
 
   onCitySelect = (option) => {
-    this.setState({
-      city: option.label
-    });
     this.props.onInputUpdate({
       'city': option.label
     });
   }
 
   onDateTimeSelect = (option) => {
-    this.setState({
-      datetime: option
-    });
     this.props.onInputUpdate({
       'datetime': option
     });
   }
 
   buttonClicked = () => {
-    // Get city and time
-    if('city' in this.state){
-      console.log('City: ', this.state.city);
-    }
-    if('datetime' in this.state){
-      console.log('DateTime: ', this.state.datetime);
-    }
     // Make api call
     this.getApiData();
   }
 
   getApiData = () => {
-    if(this.state.city){
+    if(this.props.city){
       console.log('Getting API data:');
-      return $.getJSON('/api/current/?q=' + this.state.city)
+      return $.getJSON('/api/current/?q=' + this.props.city)
         .then((data) => {
-          this.setState({
-            apiData: data
-          });
           //Update output
           this.props.onInputUpdate(
-            {apiData: this.state.apiData}
+            {apiData: data}
           );
         });
     }
@@ -75,7 +54,7 @@ class InputWidget extends React.Component {
           onCitySelect={this.onCitySelect}/>
         <div className='result'>
           You selected
-          <strong> {this.state.city} </strong>
+          <strong> {this.props.city} </strong>
         </div>
         <p>Please select a date and time:</p>
         <WeatherDatePicker

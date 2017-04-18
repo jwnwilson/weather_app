@@ -36,6 +36,8 @@ $ cd media
 
 $ npm install
 
+$ bower install
+
 $ gulp
 
 ## Development

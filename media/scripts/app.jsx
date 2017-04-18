@@ -30,7 +30,9 @@ class App extends React.Component {
       <div>
         <InputWidget
           onInputUpdate={this.onInputUpdate}
-          placeHolder='Select a city' />
+          placeHolder='Select a city'
+          datetime={this.state.datetime}
+          city={this.state.city} />
         <OutputWidget
           datetime={this.state.datetime}
           city={this.state.city}

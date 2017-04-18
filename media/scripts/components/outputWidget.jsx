@@ -9,6 +9,8 @@ class OutputWidget extends React.Component {
   }
 
   formatApiData = () => {
+    console.log('here');
+    console.log(this.props.apiData);
     if(this.props.apiData){
       let cityData = this.props.apiData.objects[0];
       return (<div>

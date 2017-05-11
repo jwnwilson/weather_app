@@ -2,6 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import InputWidget from './components/inputWidget.jsx';
 import OutputWidget from './components/outputWidget.jsx';
+import WeatherBarChart from './components/barchart.jsx';
 import moment from 'moment';
 
 class App extends React.Component {
@@ -28,6 +29,8 @@ class App extends React.Component {
   render () {
     return (
       <div>
+        <WeatherBarChart>
+        </WeatherBarChart>
         <InputWidget
           onInputUpdate={this.onInputUpdate}
           placeHolder='Select a city'

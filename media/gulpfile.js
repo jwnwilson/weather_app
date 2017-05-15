@@ -22,6 +22,7 @@ var dependencies_css_dirs = [
   'bower_components/bootstrap/dist/css/bootstrap.min.css',
 ];
 var styleDependancies = [
+  'node_modules/react-datetime/css/',
   'node_modules/react-datetime/css/'
 ];
 var font_dirs = [

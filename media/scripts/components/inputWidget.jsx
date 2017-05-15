@@ -33,7 +33,7 @@ class InputWidget extends React.Component {
         .then((data) => {
           //Update output
           this.props.onInputUpdate(
-            {apiData: data}
+            {singleCityApiData: data}
           );
         });
     }
@@ -50,7 +50,7 @@ class InputWidget extends React.Component {
       <div className='inputWidget'>
         <p>Please Select a city:</p>
         <CityDropdown
-          options={options}
+          options={this.props.cityList}
           onCitySelect={this.onCitySelect}/>
         <div className='result'>
           You selected

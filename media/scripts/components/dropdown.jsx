@@ -28,9 +28,10 @@ class CityDropdown extends Component {
   }
 
   render () {
+    let cityList = this.props.cityList || options;
     return (
       <DropdownIgnorePlaceholder
-        options={options}
+        options={cityList}
         onChange={this._onSelect}
         value={this.state.selected}
         placeholder="Select a city" />

@@ -7,10 +7,7 @@ class WeatherBarChart extends React.Component {
     this.state = {
       width: 1000,
       height: 500,
-      data: [
-        {text: 'Man', value: 500},
-        {text: 'Woman', value: 300}
-      ],
+      data: this.props.apiData,
       margin : {top: 20, right: 20, bottom: 30, left: 40}
     };
   }

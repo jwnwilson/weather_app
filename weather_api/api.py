@@ -83,6 +83,9 @@ class WeatherApi():
         self._handle_resp_errors(resp)
         return json.loads(resp.content)
 
+    def group_weather(self, params=None, timeout=None):
+        return self.get('group', params=params, timeout=timeout)
+
     def current_weather(self, params=None, timeout=None):
         return self.get('weather', params=params, timeout=timeout)
 

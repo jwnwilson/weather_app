@@ -26,6 +26,22 @@ class CurrentWeatherResource(BaseWeatherResource):
             params=self.request.GET.dict())]
 
 
+class GroupWeatherResource(BaseWeatherResource):
+    def detail(self, pk):
+        # get data by city id from api
+        return self.weather_api.group_weather(
+            params={'id': pk})
+
+    def list(self):
+        # Handle url params check for city name
+        query = self.request.GET.get('id')
+        if not query:
+            raise BadRequest('No "?id=" url param provided.')
+
+        return [self.weather_api.group_weather(
+            params=self.request.GET.dict())]
+
+
 class WeatherForcastResource(BaseWeatherResource):
     def detail(self, pk):
         # get data by city id from api
@@ -56,4 +72,3 @@ class WeatherHistoryResource(BaseWeatherResource):
 
         return [self.weather_api.weather_history(
             params=self.request.GET.dict())]
-

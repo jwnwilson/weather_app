@@ -13,7 +13,7 @@ class App extends React.Component {
       datetime: moment(),
       city: null,
       singleCityApiData: null,
-      multipleCityApiData: [],
+      barChartApiData: [],
       cityList: cityList,
       multipleCityLoaded: false
     };
@@ -27,7 +27,7 @@ class App extends React.Component {
   }
 
   onInputUpdate = (inputData) => {
-    for(var key of ['city', 'datetime', 'singleCityApiData', 'multipleCityLoaded']){
+    for(var key of ['city', 'datetime', 'singleCityApiData', 'multipleCityApiData']){
       if(key in inputData){
         console.log('Setting state: ' + key);
         let stateData = {}
@@ -35,6 +35,37 @@ class App extends React.Component {
         this.setState(stateData);
       }
     }
+  }
+
+  // Set bar chart data for barchart widget
+  barChartData = (data) => {
+    let tempData = [];
+    let pressureData = [];
+    let humidityData = [];
+    let keyList = {
+      "temp": tempData,
+      "pressure": pressureData,
+      "humidity": humidityData
+    };
+
+    for(var i in data){
+      for(var key in keyList){
+        let name = data[i].name;
+        let value = data[i].main[key];
+        let obj = {
+          text: name,
+          value: value
+        };
+        keyList[key].push(obj);
+      }
+    }
+
+    this.setState({
+      barChartApiData: [
+        tempData, pressureData, humidityData
+      ]
+    });
+
   }
 
   getApiData = () => {
@@ -51,19 +82,25 @@ class App extends React.Component {
 
       return $.getJSON(url)
         .then((data) => {
-          //Update output
-          this.onInputUpdate(
-            {multipleCityApiData: data}
-          );
+          //Sanitise data
+          data = this.barChartData(data.objects[0].list);
         });
     }
   }
 
   render () {
+    var barCharts = [];
+    for (var i in this.state.barChartApiData) {
+        barCharts.push(
+          <WeatherBarChart
+            data={this.state.barChartApiData[i]}
+            xlabel="temperature"/>
+        );
+    }
+
     return (
       <div>
-        <WeatherBarChart
-          apiData={this.state.multipleCityApiData} />
+        {barCharts}
         <InputWidget
           onInputUpdate={this.onInputUpdate}
           placeHolder='Select a city'

@@ -26453,7 +26453,7 @@ var App = function (_React$Component) {
     var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this.onInputUpdate = function (inputData) {
-      var _arr = ['city', 'datetime', 'singleCityApiData', 'multipleCityLoaded'];
+      var _arr = ['city', 'datetime', 'singleCityApiData', 'multipleCityApiData'];
 
       for (var _i = 0; _i < _arr.length; _i++) {
         var key = _arr[_i];
@@ -26464,6 +26464,33 @@ var App = function (_React$Component) {
           _this.setState(stateData);
         }
       }
+    };
+
+    _this.barChartData = function (data) {
+      var tempData = [];
+      var pressureData = [];
+      var humidityData = [];
+      var keyList = {
+        "temp": tempData,
+        "pressure": pressureData,
+        "humidity": humidityData
+      };
+
+      for (var i in data) {
+        for (var key in keyList) {
+          var name = data[i].name;
+          var value = data[i].main[key];
+          var obj = {
+            text: name,
+            value: value
+          };
+          keyList[key].push(obj);
+        }
+      }
+
+      _this.setState({
+        barChartApiData: [tempData, pressureData, humidityData]
+      });
     };
 
     _this.getApiData = function () {
@@ -26479,8 +26506,8 @@ var App = function (_React$Component) {
         console.log(url);
 
         return $.getJSON(url).then(function (data) {
-          //Update output
-          _this.onInputUpdate({ multipleCityApiData: data });
+          //Sanitise data
+          data = _this.barChartData(data.objects[0].list);
         });
       }
     };
@@ -26489,7 +26516,7 @@ var App = function (_React$Component) {
       datetime: (0, _moment2.default)(),
       city: null,
       singleCityApiData: null,
-      multipleCityApiData: [],
+      barChartApiData: [],
       cityList: _cityList2.default,
       multipleCityLoaded: false
     };
@@ -26504,14 +26531,23 @@ var App = function (_React$Component) {
         this.setState({ multipleCityLoaded: true });
       }
     }
+
+    // Set bar chart data for barchart widget
+
   }, {
     key: 'render',
     value: function render() {
+      var barCharts = [];
+      for (var i in this.state.barChartApiData) {
+        barCharts.push(_react2.default.createElement(_barchart2.default, {
+          data: this.state.barChartApiData[i],
+          xlabel: 'temp' }));
+      }
+
       return _react2.default.createElement(
         'div',
         null,
-        _react2.default.createElement(_barchart2.default, {
-          apiData: this.state.multipleCityApiData }),
+        barCharts,
         _react2.default.createElement(_inputWidget2.default, {
           onInputUpdate: this.onInputUpdate,
           placeHolder: 'Select a city',
@@ -26622,9 +26658,9 @@ var WeatherBarChart = function (_React$Component) {
     };
 
     _this.state = {
-      width: 1000,
-      height: 500,
-      data: _this.props.apiData,
+      width: 200,
+      height: 400,
+      data: _this.props.data,
       margin: { top: 20, right: 20, bottom: 30, left: 40 }
     };
     return _this;
@@ -26633,12 +26669,13 @@ var WeatherBarChart = function (_React$Component) {
   _createClass(WeatherBarChart, [{
     key: 'render',
     value: function render() {
+      console.log(this.props.apiData);
       return _react2.default.createElement(_reactBarChart2.default, {
-        ylabel: 'Quantity',
+        ylabel: this.props.ylabel,
         width: this.state.width,
         height: this.state.height,
         margin: this.state.margin,
-        data: this.state.data,
+        data: this.props.data,
         onBarClick: this.handleBarClick });
     }
   }]);

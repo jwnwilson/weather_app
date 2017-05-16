@@ -5,9 +5,9 @@ class WeatherBarChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      width: 1000,
-      height: 500,
-      data: this.props.apiData,
+      width: 200,
+      height: 400,
+      data: this.props.data,
       margin : {top: 20, right: 20, bottom: 30, left: 40}
     };
   }
@@ -23,13 +23,14 @@ class WeatherBarChart extends React.Component {
   }
 
   render () {
+    console.log(this.props.apiData);
     return (
       <BarChart
-        ylabel='Quantity'
+        ylabel={this.props.ylabel}
         width={this.state.width}
         height={this.state.height}
         margin={this.state.margin}
-        data={this.state.data}
+        data={this.props.data}
         onBarClick={this.handleBarClick}/>
     )
   }

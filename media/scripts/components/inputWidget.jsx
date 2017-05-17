@@ -50,7 +50,7 @@ class InputWidget extends React.Component {
       <div className='inputWidget'>
         <p>Please Select a city:</p>
         <CityDropdown
-          options={this.props.cityList}
+          cityList={this.props.cityList}
           onCitySelect={this.onCitySelect}/>
         <div className='result'>
           You selected

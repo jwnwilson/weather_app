@@ -41,6 +41,7 @@ class WeatherApi():
 
         # Add api key
         params['APPID'] = self.api_key
+        params.setdefault('units', 'metric')
 
         try:
             resp = requests.request(

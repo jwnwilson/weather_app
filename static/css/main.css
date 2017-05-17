@@ -16,6 +16,10 @@
 .x.axis path {
   display: none; }
 
+.barChartContainer {
+  width: 30%;
+  float: left; }
+
 header h2 {
   text-align: center;
   margin: 30px auto; }

@@ -28,6 +28,7 @@ class CityDropdown extends Component {
   }
 
   render () {
+    console.log('here');
     let cityList = this.props.cityList || options;
     return (
       <DropdownIgnorePlaceholder

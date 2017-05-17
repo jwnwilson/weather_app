@@ -61,9 +61,11 @@ class App extends React.Component {
     }
 
     this.setState({
-      barChartApiData: [
-        tempData, pressureData, humidityData
-      ]
+      barChartApiData: {
+        'temperature °C': tempData,
+        'pressure': pressureData,
+        'humidity': humidityData
+      }
     });
 
   }
@@ -89,24 +91,29 @@ class App extends React.Component {
   }
 
   render () {
-    var barCharts = [];
-    for (var i in this.state.barChartApiData) {
+    let barCharts = [];
+    let cityList = [];
+    for (var dataType in this.state.barChartApiData) {
         barCharts.push(
           <WeatherBarChart
-            data={this.state.barChartApiData[i]}
-            xlabel="temperature"/>
+            data={this.state.barChartApiData[dataType]}
+            title={dataType} />
         );
+    }
+    for(var i in this.state.cityList){
+      cityList.push(this.state.cityList[i].name);
     }
 
     return (
       <div>
         {barCharts}
+        <br className="clear"></br>
         <InputWidget
           onInputUpdate={this.onInputUpdate}
           placeHolder='Select a city'
           datetime={this.state.datetime}
           city={this.state.city}
-          cityList={this.state.cityList} />
+          cityList={cityList} />
         <OutputWidget
           datetime={this.state.datetime}
           city={this.state.city}

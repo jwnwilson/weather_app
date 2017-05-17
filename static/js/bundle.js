@@ -26489,7 +26489,11 @@ var App = function (_React$Component) {
       }
 
       _this.setState({
-        barChartApiData: [tempData, pressureData, humidityData]
+        barChartApiData: {
+          'temperature °C': tempData,
+          'pressure': pressureData,
+          'humidity': humidityData
+        }
       });
     };
 
@@ -26538,22 +26542,27 @@ var App = function (_React$Component) {
     key: 'render',
     value: function render() {
       var barCharts = [];
-      for (var i in this.state.barChartApiData) {
+      var cityList = [];
+      for (var dataType in this.state.barChartApiData) {
         barCharts.push(_react2.default.createElement(_barchart2.default, {
-          data: this.state.barChartApiData[i],
-          xlabel: 'temp' }));
+          data: this.state.barChartApiData[dataType],
+          title: dataType }));
+      }
+      for (var i in this.state.cityList) {
+        cityList.push(this.state.cityList[i].name);
       }
 
       return _react2.default.createElement(
         'div',
         null,
         barCharts,
+        _react2.default.createElement('br', { className: 'clear' }),
         _react2.default.createElement(_inputWidget2.default, {
           onInputUpdate: this.onInputUpdate,
           placeHolder: 'Select a city',
           datetime: this.state.datetime,
           city: this.state.city,
-          cityList: this.state.cityList }),
+          cityList: cityList }),
         _react2.default.createElement(_outputWidget2.default, {
           datetime: this.state.datetime,
           city: this.state.city,
@@ -26669,14 +26678,22 @@ var WeatherBarChart = function (_React$Component) {
   _createClass(WeatherBarChart, [{
     key: 'render',
     value: function render() {
-      console.log(this.props.apiData);
-      return _react2.default.createElement(_reactBarChart2.default, {
-        ylabel: this.props.ylabel,
-        width: this.state.width,
-        height: this.state.height,
-        margin: this.state.margin,
-        data: this.props.data,
-        onBarClick: this.handleBarClick });
+      return _react2.default.createElement(
+        'div',
+        { className: 'barChartContainer' },
+        _react2.default.createElement(
+          'h3',
+          null,
+          this.props.title
+        ),
+        _react2.default.createElement(_reactBarChart2.default, {
+          ylabel: this.props.ylabel,
+          width: this.state.width,
+          height: this.state.height,
+          margin: this.state.margin,
+          data: this.props.data,
+          onBarClick: this.handleBarClick })
+      );
     }
   }]);
 
@@ -26890,6 +26907,7 @@ var CityDropdown = function (_Component) {
   _createClass(CityDropdown, [{
     key: 'render',
     value: function render() {
+      console.log('here');
       var cityList = this.props.cityList || options;
       return _react2.default.createElement(DropdownIgnorePlaceholder, {
         options: cityList,
@@ -26996,7 +27014,7 @@ var InputWidget = function (_React$Component) {
           'Please Select a city:'
         ),
         _react2.default.createElement(_dropdown2.default, {
-          options: this.props.cityList,
+          cityList: this.props.cityList,
           onCitySelect: this.onCitySelect }),
         _react2.default.createElement(
           'div',

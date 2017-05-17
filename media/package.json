@@ -22,7 +22,6 @@
     "babel-preset-stage-1": "^6.24.1",
     "expect": "^1.20.2",
     "gulp-debug": "^3.1.0",
-    "json-loader": "^0.5.4",
     "karma": "^1.6.0",
     "karma-chrome-launcher": "^2.0.0",
     "karma-cli": "^1.0.1",
